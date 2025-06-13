@@ -1,7 +1,6 @@
 import React from 'react';
 import { ConfigProvider, Card, Flex, Typography, Button, Tooltip, Space } from 'antd'; // Added Space
 import {
-  DashboardOutlined,
   UsergroupAddOutlined,
   FileTextOutlined,
   PrinterOutlined,
@@ -64,6 +63,10 @@ const appTheme = {
       colorLinkHover: '#a36dbd',
       colorLinkActive: '#5a2685',
     },
+    // Added Layout component styling as it's used for the background color
+    Layout: {
+      bodyBg: '#f0f2f5', // Default light grey background
+    }
   },
 };
 
@@ -192,22 +195,13 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({
 // 4. Main App component
 const App: React.FC = () => {
   const shortcuts = [
-    {
-      title: 'Dashboard Overview',
-      description: 'Quick insights into overall application status and key metrics.',
-      icon: <DashboardOutlined style={{ fontSize: '24px' }} />,
-      path: '/dashboard',
-      infoContent: 'View aggregated data, pending tasks, and system health at a glance. Includes summaries for client forms and validation errors.',
-      quickActionText: 'View Dashboard',
-      lastActivity: 'Today, 2:30 PM',
-      keyMetric: { value: '85%', label: 'Compliance Score', type: 'success', icon: <CheckCircleOutlined /> },
-    },
+    // Removed Dashboard Overview card as per user request
     {
       title: 'Client Management',
       description: 'Manage client accounts, review client data, and handle validation errors.',
       icon: <UsergroupAddOutlined style={{ fontSize: '24px' }} />,
       path: '/client-management',
-      infoContent: 'Access client profiles, update company details, and track ACA form statuses. Prioritize clients with severe validation errors.',
+      infoContent: 'Access client profiles, update company details, and track ACA form statuses. Prioritize clients with severe validation errors and view total forms. For example: 7 clients with errors, 100,000 forms for Bizco.',
       quickActionText: 'Manage Clients',
       lastActivity: 'Yesterday, 4:00 PM',
       keyMetric: { value: 7, label: 'Clients with Errors', type: 'error', icon: <ExclamationCircleOutlined /> },
@@ -217,27 +211,27 @@ const App: React.FC = () => {
       description: 'Upload, process, and track ACA forms and related documents.',
       icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
       path: '/file-management',
-      infoContent: 'Manage all aspects of your ACA filings. Upload new forms, review submitted data, and resolve file-specific issues.',
+      infoContent: 'Manage all aspects of your ACA filings. Upload new forms, review submitted data, and resolve file-specific issues. Track file statuses like Completed, Failed, and In Progress. For example: 3 failed uploads, 2746 records for Dummy2.',
       quickActionText: 'Go to Files',
       lastActivity: 'June 10, 2025',
-      keyMetric: { value: 12, label: 'Files Awaiting Review', type: 'warning', icon: <UploadOutlined /> },
+      keyMetric: { value: 3, label: 'Failed Uploads', type: 'error', icon: <ExclamationCircleOutlined /> },
     },
     {
       title: 'Print/Filing',
       description: 'Generate, preview, and manage the printing and e-filing of forms.',
       icon: <PrinterOutlined style={{ fontSize: '24px' }} />,
       path: '/print-filing',
-      infoContent: 'Prepare your forms for submission. Preview final layouts, manage printing queues, and initiate electronic filing processes.',
+      infoContent: 'Prepare your forms for submission. Preview final layouts, manage printing queues, and initiate electronic filing processes. Keep track of forms ready to file and any pending print jobs. For example: 250 forms ready to file, 5 pending print jobs.',
       quickActionText: 'Start Filing',
       lastActivity: 'May 28, 2025',
-      keyMetric: { value: 250, label: 'Forms Ready to File', type: 'info', icon: <CheckCircleOutlined /> },
+      keyMetric: { value: 5, label: 'Pending Print Jobs', type: 'warning', icon: <PrinterOutlined /> },
     },
     {
       title: 'Reporting',
       description: 'Access a variety of reports for compliance, data analysis, and auditing.',
       icon: <BarChartOutlined style={{ fontSize: '24px' }} />,
       path: '/reporting',
-      infoContent: 'Generate detailed reports on client data, form submissions, validation trends, and compliance status for auditing and review.',
+      infoContent: 'Generate detailed reports on client data, form submissions, validation trends, and compliance status for auditing and review. Track newly generated reports. For example: 15 new reports generated today.',
       quickActionText: 'View Reports',
       lastActivity: 'Today, 11:00 AM',
       keyMetric: { value: 15, label: 'New Reports Generated', type: 'info', icon: <BarChartOutlined /> },
@@ -247,7 +241,7 @@ const App: React.FC = () => {
       description: 'Administer user accounts, roles, and permissions within the system.',
       icon: <SettingOutlined style={{ fontSize: '24px' }} />,
       path: '/user-management',
-      infoContent: 'Create new user accounts, modify existing user roles, and manage access privileges for different application modules.',
+      infoContent: 'Create new user accounts, modify existing user roles, and manage access privileges for different application modules. Monitor pending access requests. For example: 3 pending access requests.',
       quickActionText: 'Manage Users',
       lastActivity: 'June 12, 2025',
       keyMetric: { value: 3, label: 'Pending Access Requests', type: 'warning', icon: <UsergroupAddOutlined /> },
@@ -272,7 +266,8 @@ const App: React.FC = () => {
         style={{
           minHeight: '100vh',
           padding: '40px',
-          backgroundColor: appTheme.components?.Layout?.bodyBg,
+          // Adjusted to use a fallback or ensure appTheme.components?.Layout?.bodyBg is defined
+          backgroundColor: appTheme.components?.Layout?.bodyBg || '#f0f2f5',
           flexDirection: 'column',
         }}
       >
