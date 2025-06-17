@@ -1,5 +1,13 @@
-import React from 'react';
-import { ConfigProvider, Card, Flex, Typography, Button, Tooltip, Space } from 'antd'; // Added Space
+import React from "react";
+import {
+  ConfigProvider,
+  Card,
+  Flex,
+  Typography,
+  Button,
+  Tooltip,
+  Space,
+} from "antd"; // Added Space
 import {
   UsergroupAddOutlined,
   FileTextOutlined,
@@ -11,9 +19,9 @@ import {
   ClockCircleOutlined, // For last activity
   ExclamationCircleOutlined, // For warnings/errors
   CheckCircleOutlined, // For completed items
-  UploadOutlined // For file uploads
-} from '@ant-design/icons';
-import enUS from 'antd/lib/locale/en_US';
+  UploadOutlined, // For file uploads
+} from "@ant-design/icons";
+import enUS from "antd/lib/locale/en_US";
 
 const { Title, Paragraph, Text } = Typography; // Added Text
 
@@ -21,7 +29,8 @@ const { Title, Paragraph, Text } = Typography; // Added Text
 const appTheme = {
   token: {
     colorPrimary: "#7f35b2",
-    fontFamily: '"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif',
+    fontFamily:
+      '"Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif',
     fontSize: 14,
     colorSuccessText: "#0B6951",
     colorSuccessBg: "#E9F7F2",
@@ -46,7 +55,7 @@ const appTheme = {
       headerBg: "#c2a8f0",
       extraColor: "#48086f",
       colorBorderSecondary: "rgba(127, 53, 178,0.2)",
-      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+      boxShadow: "0 4px 16px rgba(0, 0, 0, 0.08)",
       borderRadius: 8,
     },
     Typography: {
@@ -59,14 +68,14 @@ const appTheme = {
       colorText: "#ffffff",
       defaultBg: "#f6f6f6",
       defaultBorderColor: "#d9d9d9",
-      colorLink: '#7f35b2',
-      colorLinkHover: '#a36dbd',
-      colorLinkActive: '#5a2685',
+      colorLink: "#7f35b2",
+      colorLinkHover: "#a36dbd",
+      colorLinkActive: "#5a2685",
     },
     // Added Layout component styling as it's used for the background color
     Layout: {
-      bodyBg: '#f0f2f5', // Default light grey background
-    }
+      bodyBg: "#f0f2f5", // Default light grey background
+    },
   },
 };
 
@@ -98,7 +107,7 @@ interface ShortcutCardProps {
   keyMetric?: {
     value: string | number;
     label: string;
-    type?: 'success' | 'warning' | 'error' | 'info'; // For color coding
+    type?: "success" | "warning" | "error" | "info"; // For color coding
     icon?: React.ReactNode; // Optional icon for the metric
   };
 }
@@ -116,13 +125,13 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({
 }) => {
   // Determine color for key metric based on its type
   let metricTextColor = appTheme.components?.Typography?.colorText;
-  if (keyMetric?.type === 'success') {
+  if (keyMetric?.type === "success") {
     metricTextColor = appTheme.token?.colorSuccessText;
-  } else if (keyMetric?.type === 'warning') {
+  } else if (keyMetric?.type === "warning") {
     metricTextColor = appTheme.token?.colorWarning;
-  } else if (keyMetric?.type === 'error') {
+  } else if (keyMetric?.type === "error") {
     metricTextColor = appTheme.token?.colorErrorText;
-  } else if (keyMetric?.type === 'info') {
+  } else if (keyMetric?.type === "info") {
     metricTextColor = appTheme.token?.colorInfoText; // Using colorInfoText from user's theme for info type
   }
 
@@ -130,12 +139,23 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({
     <Card
       title={
         <Flex align="center" justify="space-between">
-          <Title level={5} style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '8px', color: appTheme.components?.Card?.colorTextHeading }}>
+          <Title
+            level={5}
+            style={{
+              margin: 0,
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              color: appTheme.components?.Card?.colorTextHeading,
+            }}
+          >
             {icon} {title}
           </Title>
           {infoContent && (
             <Tooltip title={infoContent} placement="right">
-              <InfoCircleOutlined style={{ color: appTheme.token?.colorInfo }} />
+              <InfoCircleOutlined
+                style={{ color: appTheme.token?.colorInfo }}
+              />
             </Tooltip>
           )}
         </Flex>
@@ -146,35 +166,60 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({
         width: 320,
         minHeight: 220, // Increased minHeight to accommodate new info
         flexShrink: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
         backgroundColor: appTheme.components?.Card?.colorBgContainer,
       }}
       onClick={() => onClick(path)}
     >
-      <Paragraph style={{ marginBottom: (quickActionText || lastActivity || keyMetric) ? '12px' : '0', color: appTheme.components?.Card?.colorText }}>
+      <Paragraph
+        style={{
+          marginBottom:
+            quickActionText || lastActivity || keyMetric ? "12px" : "0",
+          color: appTheme.components?.Card?.colorText,
+        }}
+      >
         {description}
       </Paragraph>
 
       {/* Unique informative details for each card */}
-      <Flex direction="column" gap="small" style={{ marginBottom: quickActionText ? '16px' : '0' }}>
+      <Flex
+        direction="column"
+        gap="small"
+        style={{ marginBottom: quickActionText ? "16px" : "0" }}
+      >
         {lastActivity && (
-          <Text type="secondary" style={{ color: appTheme.components?.Typography?.colorTextSecondary }}>
-            <ClockCircleOutlined style={{ marginRight: '4px' }} />
+          <Text
+            type="secondary"
+            style={{
+              color: appTheme.components?.Typography?.colorTextSecondary,
+            }}
+          >
+            <ClockCircleOutlined style={{ marginRight: "4px" }} />
             Last Activity: {lastActivity}
           </Text>
         )}
         {keyMetric && (
-          <Text style={{ color: metricTextColor, fontWeight: 'bold' }}>
-            {keyMetric.icon && <span style={{ marginRight: '4px' }}>{keyMetric.icon}</span>}
-            {keyMetric.value} <Text type="secondary" style={{ color: appTheme.components?.Typography?.colorTextSecondary }}>{keyMetric.label}</Text>
+          <Text style={{ color: metricTextColor, fontWeight: "bold" }}>
+            {keyMetric.icon && (
+              <span style={{ marginRight: "4px" }}>{keyMetric.icon}</span>
+            )}
+            {keyMetric.value}{" "}
+            <Text
+              type="secondary"
+              style={{
+                color: appTheme.components?.Typography?.colorTextSecondary,
+              }}
+            >
+              {keyMetric.label}
+            </Text>
           </Text>
         )}
       </Flex>
 
       {quickActionText && (
-        <Flex justify="flex-end" style={{ width: '100%' }}>
+        <Flex justify="flex-end" style={{ width: "100%" }}>
           <Button
             type="primary"
             onClick={(e) => {
@@ -182,7 +227,10 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({
             }}
             icon={<RightOutlined />}
             size="small"
-            style={{ backgroundColor: appTheme.token?.colorPrimary, color: appTheme.components?.Button?.colorText }}
+            style={{
+              backgroundColor: appTheme.token?.colorPrimary,
+              color: appTheme.components?.Button?.colorText,
+            }}
           >
             {quickActionText}
           </Button>
@@ -197,54 +245,89 @@ const App: React.FC = () => {
   const shortcuts = [
     // Removed Dashboard Overview card as per user request
     {
-      title: 'Client Management',
-      description: 'Manage client accounts, review client data, and handle validation errors.',
-      icon: <UsergroupAddOutlined style={{ fontSize: '24px' }} />,
-      path: '/client-management',
-      infoContent: 'Access client profiles, update company details, and track ACA form statuses. Prioritize clients with severe validation errors and view total forms. For example: 7 clients with errors, 100,000 forms for Bizco.',
-      quickActionText: 'Manage Clients',
-      lastActivity: 'Yesterday, 4:00 PM',
-      keyMetric: { value: 7, label: 'Clients with Errors', type: 'error', icon: <ExclamationCircleOutlined /> },
+      title: "Client Management",
+      description:
+        "Manage client accounts, review client data, and handle validation errors.",
+      icon: <UsergroupAddOutlined style={{ fontSize: "24px" }} />,
+      path: "/client-management",
+      infoContent:
+        "Access client profiles, update company details, and track ACA form statuses. Prioritize clients with severe validation errors and view total forms. For example: 7 clients with errors, 100,000 forms for Bizco.",
+      quickActionText: "Manage Clients",
+      lastActivity: "Yesterday, 4:00 PM",
+      keyMetric: {
+        value: 7,
+        label: "Clients with Errors",
+        type: "error",
+        icon: <ExclamationCircleOutlined />,
+      },
     },
     {
-      title: 'File Management',
-      description: 'Upload, process, and track ACA forms and related documents.',
-      icon: <FileTextOutlined style={{ fontSize: '24px' }} />,
-      path: '/file-management',
-      infoContent: 'Manage all aspects of your ACA filings. Upload new forms, review submitted data, and resolve file-specific issues. Track file statuses like Completed, Failed, and In Progress. For example: 3 failed uploads, 2746 records for Dummy2.',
-      quickActionText: 'Go to Files',
-      lastActivity: 'June 10, 2025',
-      keyMetric: { value: 3, label: 'Failed Uploads', type: 'error', icon: <ExclamationCircleOutlined /> },
+      title: "File Management",
+      description:
+        "Upload, process, and track ACA forms and related documents.",
+      icon: <FileTextOutlined style={{ fontSize: "24px" }} />,
+      path: "/file-management",
+      infoContent:
+        "Manage all aspects of your ACA filings. Upload new forms, review submitted data, and resolve file-specific issues. Track file statuses like Completed, Failed, and In Progress. For example: 3 failed uploads, 2746 records for Dummy2.",
+      quickActionText: "Go to Files",
+      lastActivity: "June 10, 2025",
+      keyMetric: {
+        value: 3,
+        label: "Failed Uploads",
+        type: "error",
+        icon: <ExclamationCircleOutlined />,
+      },
     },
     {
-      title: 'Print/Filing',
-      description: 'Generate, preview, and manage the printing and e-filing of forms.',
-      icon: <PrinterOutlined style={{ fontSize: '24px' }} />,
-      path: '/print-filing',
-      infoContent: 'Prepare your forms for submission. Preview final layouts, manage printing queues, and initiate electronic filing processes. Keep track of forms ready to file and any pending print jobs. For example: 250 forms ready to file, 5 pending print jobs.',
-      quickActionText: 'Start Filing',
-      lastActivity: 'May 28, 2025',
-      keyMetric: { value: 5, label: 'Pending Print Jobs', type: 'warning', icon: <PrinterOutlined /> },
+      title: "Print/Filing",
+      description:
+        "Generate, preview, and manage the printing and e-filing of forms.",
+      icon: <PrinterOutlined style={{ fontSize: "24px" }} />,
+      path: "/print-filing",
+      infoContent:
+        "Prepare your forms for submission. Preview final layouts, manage printing queues, and initiate electronic filing processes. Keep track of forms ready to file and any pending print jobs. For example: 250 forms ready to file, 5 pending print jobs.",
+      quickActionText: "Start Filing",
+      lastActivity: "May 28, 2025",
+      keyMetric: {
+        value: 5,
+        label: "Pending Print Jobs",
+        type: "warning",
+        icon: <PrinterOutlined />,
+      },
     },
     {
-      title: 'Reporting',
-      description: 'Access a variety of reports for compliance, data analysis, and auditing.',
-      icon: <BarChartOutlined style={{ fontSize: '24px' }} />,
-      path: '/reporting',
-      infoContent: 'Generate detailed reports on client data, form submissions, validation trends, and compliance status for auditing and review. Track newly generated reports. For example: 15 new reports generated today.',
-      quickActionText: 'View Reports',
-      lastActivity: 'Today, 11:00 AM',
-      keyMetric: { value: 15, label: 'New Reports Generated', type: 'info', icon: <BarChartOutlined /> },
+      title: "Reporting",
+      description:
+        "Access a variety of reports for compliance, data analysis, and auditing.",
+      icon: <BarChartOutlined style={{ fontSize: "24px" }} />,
+      path: "/reporting",
+      infoContent:
+        "Generate detailed reports on client data, form submissions, validation trends, and compliance status for auditing and review. Track newly generated reports. For example: 15 new reports generated today.",
+      quickActionText: "View Reports",
+      lastActivity: "Today, 11:00 AM",
+      keyMetric: {
+        value: 15,
+        label: "New Reports Generated",
+        type: "info",
+        icon: <BarChartOutlined />,
+      },
     },
     {
-      title: 'User Management',
-      description: 'Administer user accounts, roles, and permissions within the system.',
-      icon: <SettingOutlined style={{ fontSize: '24px' }} />,
-      path: '/user-management',
-      infoContent: 'Create new user accounts, modify existing user roles, and manage access privileges for different application modules. Monitor pending access requests. For example: 3 pending access requests.',
-      quickActionText: 'Manage Users',
-      lastActivity: 'June 12, 2025',
-      keyMetric: { value: 3, label: 'Pending Access Requests', type: 'warning', icon: <UsergroupAddOutlined /> },
+      title: "User Management",
+      description:
+        "Administer user accounts, roles, and permissions within the system.",
+      icon: <SettingOutlined style={{ fontSize: "24px" }} />,
+      path: "/user-management",
+      infoContent:
+        "Create new user accounts, modify existing user roles, and manage access privileges for different application modules. Monitor pending access requests. For example: 3 pending access requests.",
+      quickActionText: "Manage Users",
+      lastActivity: "June 12, 2025",
+      keyMetric: {
+        value: 3,
+        label: "Pending Access Requests",
+        type: "warning",
+        icon: <UsergroupAddOutlined />,
+      },
     },
   ];
 
@@ -264,11 +347,11 @@ const App: React.FC = () => {
         justify="center"
         align="center"
         style={{
-          minHeight: '100vh',
-          padding: '40px',
+          minHeight: "100vh",
+          padding: "40px",
           // Adjusted to use a fallback or ensure appTheme.components?.Layout?.bodyBg is defined
-          backgroundColor: appTheme.components?.Layout?.bodyBg || '#f0f2f5',
-          flexDirection: 'column',
+          backgroundColor: appTheme.components?.Layout?.bodyBg || "#f0f2f5",
+          flexDirection: "column",
         }}
       >
         <Flex
@@ -276,8 +359,8 @@ const App: React.FC = () => {
           wrap="wrap"
           justify="center"
           style={{
-            maxWidth: '1200px',
-            width: '100%',
+            maxWidth: "1200px",
+            width: "100%",
           }}
         >
           {shortcuts.map((shortcut, index) => (
